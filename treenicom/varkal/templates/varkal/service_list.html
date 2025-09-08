@@ -1,0 +1,25 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	{% if user.is_staff %}
+		<a href="service/add" class="button" id="add">Lisää palvelu</a>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="error">{{ message }}</p>
+			{% endfor %}
+		{% endif %}
+		<ul>
+		{% for service in object_list %}
+			<li>{{ service.name }} <a href="service/{{ service.pk }}/edit" class="button" id="edit">Muokkaa</a><a href="service/{{ service.pk }}/delete" class="button" id ="delete">Poista</a></li>
+			<div id="infotext">{{ service.info }}</div>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<ul>
+		{% for service in object_list %}
+			<li>{{ service.name }}</li>
+			<div id="infotext">{{ service.info }}</div>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock "content" %}

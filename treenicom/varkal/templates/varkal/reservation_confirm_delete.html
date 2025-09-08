@@ -1,0 +1,10 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	<p>Poistetaanko <b>{{ reservation }}</b> pysyvästi?</p>
+	<form method="POST">
+		{% csrf_token %}
+		<input type="submit" value="Poista" id="form-delete">
+	</form>
+	<p>Varauksen peruminen tapahtuu varauksen muokkausnäkymässä <a href="/reservation/{{ reservation.pk }}/edit" class="button" id="edit">Muokkaa</a>
+{% endblock "content" %}

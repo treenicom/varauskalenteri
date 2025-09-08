@@ -1,0 +1,13 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	<p>Vahvista varaus: <b>{{ timeslot }}</b></p>
+	<form method="POST">
+		{%  csrf_token%}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type="submit" value="Varaa" id="form-save">
+	</form>
+	<pre>{% debug %}</pre>
+{% endblock "content" %}

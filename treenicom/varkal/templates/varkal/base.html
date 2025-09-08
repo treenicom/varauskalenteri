@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang=en>
+	<head>
+		<title>Varauskalenteri</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width; initial-scale=1">
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<script src="https://unpkg.com/htmx.org@2.0.1"></script>
+	</head>
+	<body>
+		<header>
+			<div id="gi1"></div>
+			<h1 id="gi2">TREENICOM VARAUSKALENTERI</h1>
+				{% if user.is_authenticated %}
+					<div id="gi3">			
+						Hei <b>{{ user }}!</b><a href="/logout" class="button" id="logout">Kirjaudu ulos</a>
+					</div>
+				{% else %}
+					<div id="gi3">
+						<a href="/login" class="button" id="login">Kirjaudu sisään</a>
+						<a href="/register" class="button" id="register">Rekisteröidy</a>
+					</div>
+				{% endif %}
+		</header>
+		<nav id="side">
+			<a href="/"  class="nav">Kalenteri</a>
+			{% if user.is_authenticated %}
+				<a href="/reservation"  class="nav">Varaukset</a>
+			{% endif %}
+			<a href="/place"  class="nav">Paikat</a>
+			<a href="/service"  class="nav">Palvelut</a>
+		</nav>
+		<main>
+			<h1 id="warning-sign">!!!!!UNDER CONSTRUCTION!!!!!</h1>
+			{% block "content" %}
+			{% endblock "content" %}
+		</main>
+	</body>
+</html>

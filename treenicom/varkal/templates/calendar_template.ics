@@ -1,0 +1,12 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Treenicom//NONSGML varauskalenteri//EN
+BEGIN:VEVENT
+SUMMARY:{summary}
+UID:{uid}
+TZID:Europe/Helsinki
+DTSTAMP:{dtstamp}
+DTSTART:{dtstart}
+DURATION:{duration}
+END:VEVENT
+END:VCALENDAR

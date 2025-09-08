@@ -1,0 +1,29 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	{% for message in messages %}
+		<p>{{ message }}</p>
+	{% endfor %}
+	{% if user.is_staff %}
+		<a href="reservation/add" class="button add">Uusi varaus</a>
+		<ul>
+			{% for reservation in object_list %}
+				<li>{{ reservation.timeslot }} <a href="/reservation/{{ reservation.pk }}/edit" class="button edit">Muokkaa</a><a href="reservation/{{ reservation.pk }}/delete" class="button delete">Poista</a></li>
+				<div id="infotext">Asiakkaat: {{ reservation.user }}</div>
+				{% if reservation.cancelled %}
+					<div id="infotext">Peruutettu: {{ reservation.cancelled }}</div>
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			{% if object_list %}
+				{% for reservation in object_list %}
+				<li>{{ reservation.user }}</li>
+				<div id="infotext">{{ reservation.timeslot }}<a href="reservation/{{ reservation.pk }}/cancel" class="button" id="edit">Peru varaus</a></div>
+				{% endfor %}
+			{% else %}
+				<p>Sinulla ei ole varauksia!</p>
+			{% endif %}
+		{% endif %}
+		</ul>
+{% endblock "content" %}
+

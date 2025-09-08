@@ -1,0 +1,11 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	<form method="POST">
+		{%  csrf_token%}
+		<table>
+			{{ form.as_table }}
+		</table>
+		<input type="submit" value="Rekisteröidy" id="form-save">
+	</form>
+{% endblock "content" %}
