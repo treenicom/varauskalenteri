@@ -1,9 +1,0 @@
-{% extends "varkal/base.html" %}
-
-{% block "content" %}
-	<p>Poistetaanko <b>{{ place }}</b> pysyvästi?</p>
-	<form method="POST">
-		{% csrf_token %}
-		<input type="submit" value="Poista" id="form-delete">
-	</form>
-{% endblock "content" %}
