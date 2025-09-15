@@ -1,0 +1,25 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	{% if user.is_staff %}
+		<a href="place/add" class="button" id="add">Lisää paikka</a>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="error">{{ message }}</p>
+			{% endfor %}
+		{% endif %}
+		<ul>
+		{% for place in object_list %}
+			<li>{{ place.name }}: {{ place.address }}, {{ place.city }} <a href="place/{{ place.pk }}/edit" class="button" id="edit">Muokkaa</a><a href="place/{{ place.pk }}/delete" class="button" id="delete">Poista</a></li>
+			<div id="infotext">{{ place.info }}</div>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<ul>
+			{% for place in object_list %}
+				<li>{{ place.name }}: {{ place.address }}, {{ place.city }}</li>
+				<div id="infotext">{{ place.info }}</div>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock "content" %}

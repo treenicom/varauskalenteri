@@ -1,0 +1,18 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	<p>Peru varaus</p>
+	<form method="POST">
+		{%  csrf_token%}
+		<table>
+			<tbody>
+			    <tr>
+			        <th>Peruutuskoodi: </th>
+			        <td><input id="id_cancel_code" type="text" name="cancel_code" maxlength="20" required=""></td>
+			    </tr>
+			</tbody>
+		</table>
+		<input type="submit" value="Peru" id="form-save">
+	</form>
+	<pre>{% debug %}</pre>
+{% endblock "content" %}

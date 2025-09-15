@@ -1,0 +1,12 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	<p>Vahvista peruutus: <b>{{ reservation }}</b></p>
+	<form method="POST">
+		{%  csrf_token%}
+		<form>
+			{{ form.as_table }}
+			<input type="submit" value="Tallenna">
+		</form>
+	</form>
+{% endblock "content" %}

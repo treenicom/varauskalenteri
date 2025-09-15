@@ -1,0 +1,36 @@
+{% extends "varkal/base.html" %}
+
+{% block "content" %}
+	{% if user.is_staff %}
+		<a href="calendar/add" class="button add">Lisää kalenteriaika</a>
+		<ul>
+			{% for timeslot in object_list %}
+				<li>{{ timeslot.place }} {{ timeslot.service.name }} ({{ timeslot.service.duration }}min) {{ timeslot.start_time|date:"j.n." }} klo {{ timeslot.start_time|time:"H:i" }} ({{ timeslot.participants }}/{{ timeslot.participants_max }})<a href="calendar/{{ timeslot.pk }}/edit" class="button edit">Muokkaa</a><a href="calendar/{{ timeslot.pk }}/delete" class="button delete">Poista</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}	
+	<!--	<ul>
+			{% for timeslot in object_list %}
+				<li>{{ timeslot.place }} {{ timeslot.service.name }} {{ timeslot.start_time|date:"j.n." }} klo {{ timeslot.start_time|time:"H:i" }} ({{ timeslot.participants }}/{{ timeslot.participants_max }})<a href="calendar/{{ timeslot.pk }}/reserve" class="button edit">Varaa</a>
+			{% endfor %}
+		</ul>-->
+	{% endif %}
+		<button class="button next" hx-get="/calendar/prevweek" hx-trigger="click" hx-target="#calendar">
+			Edellinen viikko
+		</button>
+		
+		<button class="button next" hx-get="/calendar/currentweek" hx-trigger="click" hx-target="#calendar">
+			Nykyinen viikko
+		</button>
+		
+		<button class="button next" hx-get="/calendar/nextweek" hx-trigger="click" hx-target="#calendar">
+			Seuraava viikko
+		</button>
+		
+		<div id="calendar-container">
+		<table id="calendar">
+			{{ week_calendar|safe }}
+		</table>
+	</div>
+	<pre>{% debug %}</pre>
+{% endblock "content" %}
