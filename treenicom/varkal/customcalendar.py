@@ -12,6 +12,7 @@ class Week:
             "start": week_start,
             "end": week_end,
         }
+        print(week_start, "customcalendar 15")
 
         for i in range(0, 7):
             d = week_start + timedelta(days=i)
@@ -40,39 +41,34 @@ class ReservationWeekCalendar(HTMLCalendar):
     def formatweek(self, week_tuple, week_dict):
         week_data = TimeSlot.objects.filter(start_time__gte=week_dict["start"]).filter(start_time__lte=week_dict["end"])
         s = ''.join(self.formatday(d, wd, m) for (d, wd, m) in week_tuple)
+        weekdays_row = '<tr><th>Ma</th><th>Ti</th><th>Ke</th><th>To</th><th>Pe</th><th>La</th><th>Su</th></tr>'
         date_row = '<tr class="date-row">%s</tr>' % s
         timeslot_rows = []
+        timeslot_cells = {
+            0:"val1",
+            1:"val2",
+            2:"val3",
+            3:"val4",
+            4:"val5",
+            5:"val6",
+            6:"val7",
+        }
         if not week_data:
-            print("Hep")
-            pass
+            table_data = weekdays_row + date_row
         else:
             for hour in range(10, 20):
-                timeslot_cells = {
-                    0:"",
-                    1:"",
-                    2:"",
-                    3:"",
-                    4:"",
-                    5:"",
-                    6:"",
-                }
-            for wd in timeslot_cells:
-                for timeslot in week_data:
-                    if timeslot.start_time.hour == hour and timeslot.start_time.weekday() == wd:
-                        data = '<td class="%s"><a href="calendar/%d/reserve">%s</a></td>' % (self.cssclasses[wd], timeslot.pk, timeslot)
-                    elif not timeslot_cells[wd]:
-                        data = '<td class="%s">&nbsp</td>' % self.cssclasses[wd]
-                    timeslot_cells[wd] = data
-                    print("HEP", data)
-                    timeslots_str = ''.join(timeslot_cells[value] for value in sorted(timeslot_cells))
-                    row = '<tr class="hour-row" id="hr%d">%s</tr>' % (hour, timeslots_str)
-                    timeslot_rows.append(row)
+                for day_cell in timeslot_cells:
+                    # if hour == timeslot.hour AND day_cell == timeslot.day-> cell value = timeslot
+                    # else -> empty cell (with proper css attrs)
+                    print(week_data[0], type(week_data))
+                row = '<tr class="hour-row" id="hr%d">%s</tr>' % (hour, timeslot_cells)
+                timeslot_rows.append(row)
+                #print(timeslot_rows)
+            timeslot_rows = ''.join(timeslot_rows)
+            table_data = weekdays_row + date_row + timeslot_rows
 
-                timeslot_rows = ''.join(timeslot_rows)
-                wd_row = '<tr><th>Ma</th><th>Ti</th><th>Ke</th><th>To</th><th>Pe</th><th>La</th><th>Su</th></tr>'
-                table_data = wd_row + date_row + timeslot_rows
+        return table_data
 
-                return table_data
 '''
 if not week_data:
 pass
