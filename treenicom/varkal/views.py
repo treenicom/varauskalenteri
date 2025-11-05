@@ -337,6 +337,7 @@ def get_prev_week(request):
 	return HttpResponse(week_cal)
 
 def get_current_week(request):
+    request.session.flush()
     curr_week = datetime.today()
     week_cal = make_week_context(curr_week)
     return HttpResponse(week_cal)
