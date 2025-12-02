@@ -138,6 +138,7 @@ input#form-delete{
 #calendar-container tr{
 	border: solid;
 	text-align: center;
+	height: 24px;
 }
 
 #calendar-container td{
