@@ -12,11 +12,9 @@ class Week:
             "start": week_start,
             "end": week_end,
         }
-        print(week_start, "customcalendar 15")
 
         for i in range(0, 7):
             d = week_start + timedelta(days=i)
-            # mon..sun | 1..7
             wd = i
             date_tuple = (d.day, wd, d.month)
             week_tuples.append(date_tuple)
@@ -63,11 +61,11 @@ class ReservationWeekCalendar(HTMLCalendar):
                     timeslot_start_h = int(timeslot.start_time.strftime("%H"))
                     timeslot_day = int(timeslot.start_time.strftime("%u"))
                     if hour == timeslot_start_h and day_cell == timeslot_day:
-                        timeslot_data = f"{str(timeslot.service)}: {str(timeslot.place)}"
-                td = '<td class="%s">%s</td>' % (timeslot_cells[day_cell], timeslot_data)
+                        timeslot_data = f'<a href="calendar/{timeslot.id}/reserve">{timeslot.service}: {timeslot.place}</a>'
+                td = f'<td class="{timeslot_cells[day_cell]}">{timeslot_data}</td>'
                 row_data.append(td)
             row_data = ''.join(row_data)
-            row = '<tr class="hour-row" id="hr%d">%s</tr>' % (hour, row_data)
+            row = f'<tr class="hour-row" id="hr{hour}">{row_data}</tr>'
             timeslot_rows.append(row)
             
         timeslot_rows = ''.join(timeslot_rows)
