@@ -6,7 +6,7 @@ body{
 	margin: 0;
 }
 
-header{
+#top-header{
 	display: grid;
 	grid-template-columns: 25% 50% 25%;
 	padding: 15px;
@@ -35,7 +35,7 @@ header{
 }
 
 main{
-	max-width: 800px;
+	/*max-width: 800px;*/
 	position: absolute;
 	margin: 0 auto;
 	left: 30vw;
@@ -123,24 +123,20 @@ input#form-delete{
 
 #calendar-container{
 /*	height: 500px; */
-	width: 100%;
-	background-color: lightgreen;
-	margin-bottom: 80px;
+    display: grid;
+    width: 100%;
+    margin-bottom: 80px;
+    border: solid #3ead5c;
+    border-radius: 25px;
+    background-color: #91c57375;
+          
 }
 
-#calendar-container table{
-	color: darkgreen;
-	width: 100%;
-	border: solid;
-	border-collapse: collapse;
+#date-row{
+    display:flex;
 }
 
-#calendar-container tr{
-	border: solid;
-	text-align: center;
-	height: 24px;
-}
-
-#calendar-container td{
-	border: solid;
+.cal-header-item{
+    padding: 10px;
+    margin: 0;
 }

@@ -24,24 +24,26 @@ class Week:
 
 class ReservationWeekCalendar(HTMLCalendar):
 
+    weekdays_fin = ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"]
+
 # https://github.com/python/cpython/blob/132243957ce834cf5ffced4bf8e39d00f6e34e5f/Lib/calendar.py
-# Added month number to be included in the formatting
+# Added month number to be included in the formatting. 
     def formatday(self, day, weekday, month):
         """
         Return a day as a table cell.
         """
         if day == 0:
         # day outside month
-            return '<td class="%s">&nbsp;</td>' % self.cssclass_noday
+            return '<h1 class="%s">&nbsp;</h1>' % self.cssclass_noday
         else:
-            return '<td class="%s">%d.%d</td>' % (self.cssclasses[weekday], day, month)
+            return f'<h1 class="cal-header-item">{self.weekdays_fin[weekday]} {day}.{month}</h1>'
 
     def formatweek(self, week_tuple, week_dict):
         # is it smart to make a new query every time calendar loads?
         week_data = TimeSlot.objects.filter(start_time__gte=week_dict["start"]).filter(start_time__lte=week_dict["end"])
         s = ''.join(self.formatday(d, wd, m) for (d, wd, m) in week_tuple)
-        weekdays_row = '<tr><th>Ma</th><th>Ti</th><th>Ke</th><th>To</th><th>Pe</th><th>La</th><th>Su</th></tr>'
-        date_row = '<tr class="date-row">%s</tr>' % s
+        weekdays_row = '<header id="weekdays-row"><h1>Ma</h1><h1>Ti</h1><h1>Ke</h1><h1>To</h1><h1>Pe</h1><h1>La</h1><h1>Su</h1></header>'
+        date_row = '<header id="date-row">%s</header>' % s
         timeslot_rows = []
         timeslot_cells = {
             1:"mon",
@@ -69,7 +71,7 @@ class ReservationWeekCalendar(HTMLCalendar):
             timeslot_rows.append(row)
             
         timeslot_rows = ''.join(timeslot_rows)
-        table_data = weekdays_row + date_row + timeslot_rows
+        table_data = date_row + timeslot_rows
 
         return table_data
 
