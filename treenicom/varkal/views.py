@@ -304,8 +304,8 @@ class ReservationDeleteView(UserPassesTestMixin, DeleteView):
 
 def make_week_context(d):
 	try:
-		wk_tuples, wk_dict = Week.make_week(d)
-		week_cal = CalendarListView.cal.formatweek(wk_tuples, wk_dict)
+		wk_tuples = Week.make_week(d)
+		week_cal = CalendarListView.cal.formatweek(wk_tuples)
 	except IndexError:
 		week_cal = []
 	return week_cal
